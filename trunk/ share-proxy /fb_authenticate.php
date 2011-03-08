@@ -27,7 +27,9 @@ $access_token = file_get_contents($token_url);
 
 $temp = split("=", $access_token);
 
-$json = '{access_token:' . $temp[1] . '}';
+
+$json = array();
+$json['access_token'] = $temp[1];
 
 session_start();
 $_SESSION['access_token'] = json_encode($json); // store session data
