@@ -1,20 +1,20 @@
 <?php
 
-include 'test/keys.php';
-include 'test/EpiCurl.php';
-include 'test/EpiOAuth.php';
-include 'test/EpiTwitter.php';
+include 'lib/keys.php';
+include 'lib/EpiCurl.php';
+include 'lib/EpiOAuth.php';
+include 'lib/EpiTwitter.php';
 
-//echo $consumerKey. "= > ". $consumerSecret;
+
 $Twitter = new EpiTwitter($consumerKey, $consumerSecret);
-
 if (isset($_GET['oauth_token']) || (isset($_COOKIE['oauth_token']) && isset($_COOKIE['oauth_token_secret']))) {
     $Twitter->setToken($_GET['oauth_token']);
     $token = $Twitter->getAccessToken();
-    
+
     $Twitter->setToken($token->oauth_token, $token->oauth_token_secret);
-    echo $token->oauth_token. " <------->   ". $token->oauth_token_secret;
+    echo $token->oauth_token . " <------->   " . $token->oauth_token_secret;
     $user = $Twitter->get_accountVerify_credentials();
+
     echo "
 	<p>
 	Username: <br />
@@ -25,9 +25,7 @@ if (isset($_GET['oauth_token']) || (isset($_COOKIE['oauth_token']) && isset($_CO
 	<strong>{$user->status->text}</strong><br/>
 
 	</p>";
-} elseif (isset($_GET['denied'])) {
-    echo 'You must sign in through twitter first';
-} else {
-    echo 'You are not logged in';
+
+    //$status = $Twitter->post('/statuses/update.json', array('status' => 'This a simple test from twitter-async at ' . date('m-d-Y h:i:s')));
 }
 ?>
