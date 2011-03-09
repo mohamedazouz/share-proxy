@@ -1,23 +1,33 @@
 <?php
 
-$consumer_key = "zxZejhvKQhUqk0c4aYqmiA";
-$consumer_secret = "MmsCp0ZJndjv0kHVx8uXQWgjO95J69nuHurrSxqw8";
+include 'test/keys.php';
+include 'test/EpiCurl.php';
+include 'test/EpiOAuth.php';
+include 'test/EpiTwitter.php';
 
-echo "eshta";
+//echo $consumerKey. "= > ". $consumerSecret;
+$Twitter = new EpiTwitter($consumerKey, $consumerSecret);
 
-/*require_once('tw_test/config.php');
+if (isset($_GET['oauth_token']) || (isset($_COOKIE['oauth_token']) && isset($_COOKIE['oauth_token_secret']))) {
+    $Twitter->setToken($_GET['oauth_token']);
+    $token = $Twitter->getAccessToken();
+    
+    $Twitter->setToken($token->oauth_token, $token->oauth_token_secret);
+    echo $token->oauth_token. " <------->   ". $token->oauth_token_secret;
+    $user = $Twitter->get_accountVerify_credentials();
+    echo "
+	<p>
+	Username: <br />
+	<strong>{$user->screen_name}</strong><br />
+	Profile Image:<br/>
+	<img src=\"{$user->profile_image_url}\"><br />
+	Last Tweet: <br />
+	<strong>{$user->status->text}</strong><br/>
 
-
-require_once('tw_test/twitterOAuth/twitterOAuth.php');
-require_once('tw_test/twitterOAuth/OAuth.php');
-
-
-$to = new TwitterOAuth($consumer_key, $consumer_secret);
-$tok = $to->getRequestToken();
-
-$request_link = $to->getAuthorizeURL($tok);
-
-echo $tok['oauth_token'];
-echo "<br> eshts => ".$tok['oauth_token_secret'];*/
-
+	</p>";
+} elseif (isset($_GET['denied'])) {
+    echo 'You must sign in through twitter first';
+} else {
+    echo 'You are not logged in';
+}
 ?>
