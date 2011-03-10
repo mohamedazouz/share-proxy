@@ -1,10 +1,9 @@
 <?php
-
 ?>
 
 <br>
 <a href="twitter_redirect.php">
-   get your access token twitter
+    get your access token twitter
 </a>
 <br>
 
