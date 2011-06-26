@@ -1,12 +1,11 @@
 <?php
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 
-$app_id = "185034264867265";
-$app_secret = "bfcd37f48bbc2605c654027d59780660";
+$app_id = "148794918520679"; //"185034264867265";
+$app_secret = "d9dc7b2a54e7e973b67bea56eeaafa0a"; // "bfcd37f48bbc2605c654027d59780660";
 $my_url = "http://local.activedd.com/azouz/fb_authenticate.php?code";
 
 $code = $_REQUEST["code"];
@@ -33,6 +32,10 @@ $json['access_token'] = $temp[1];
 
 session_start();
 $_SESSION['access_token'] = json_encode($json); // store session data
-echo "thanks for your our application !! :P "
+echo "Thanks , permission accepted successfully , and close it automatically after that"
 ?>
+
+<script>
+    setTimeout("window.close()", 2*1000);
+</script>
 
