@@ -24,8 +24,12 @@ if (isset($_GET['oauth_token']) || (isset($_COOKIE['oauth_token']) && isset($_CO
     
     session_start();
     $_SESSION['twitter_token'] = json_encode($json); // store session data
-    echo "thanks for your our application !! :P ";
+    echo "Thanks , permission accepted successfully , and close it automatically after that";
 
     //$status = $Twitter->post('/statuses/update.json', array('status' => 'This a simple test from twitter-async at ' . date('m-d-Y h:i:s')));
 }
 ?>
+
+<script>
+    setTimeout("window.close()", 2*1000);
+</script>
