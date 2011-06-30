@@ -32,7 +32,6 @@ $json['access_token'] = $temp[1];
 
 session_start();
 $_SESSION['access_token'] = json_encode($json); // store session data
-echo "Thanks , permission accepted successfully , and close it automatically after that"
 ?>
 
 <script>
