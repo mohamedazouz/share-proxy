@@ -34,7 +34,9 @@ session_start();
 $_SESSION['access_token'] = json_encode($json); // store session data
 ?>
 
-<script>
-    setTimeout("window.close()", 2*1000);
+<script type="text/javascript">
+    document.write('تم اضافة الحساب بنجاح ');
+    setTimeout('window.close();', 1*1000);
+    setTimeout('window.location="http://facebook.com";', 2*1000);
 </script>
 
