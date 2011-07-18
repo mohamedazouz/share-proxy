@@ -17,25 +17,32 @@ $code = $_REQUEST["code"];
   echo("<script> top.location.href='" . $dialog_url . "'</script>");
   }
  */
-$token_url = "https://graph.facebook.com/oauth/access_token?client_id="
-        . $app_id . "&redirect_uri=" . urlencode($my_url) . "&client_secret="
-        . $app_secret . "&code=" . $code;
-
-
-$access_token = file_get_contents($token_url);
-
-$temp = split("=", $access_token);
-
-
-$json = array();
-$json['access_token'] = $temp[1];
-
 session_start();
-$_SESSION['access_token'] = json_encode($json); // store session data
+$json = array();
+if (isset($_GET['error'])) {
+    $json['access_token'] = "-1";
+    echo "عفوا لا بد من  ان تسمح بقبول التطبيق";
+} else {
+    $token_url = "https://graph.facebook.com/oauth/access_token?client_id="
+            . $app_id . "&redirect_uri=" . urlencode($my_url) . "&client_secret="
+            . $app_secret . "&code=" . $code;
+
+    $access_token = file_get_contents($token_url);
+
+    $temp = split("=", $access_token);
+
+
+    $json = array();
+    $json['access_token'] = $temp[1];
+
+
+    $_SESSION['access_token'] = json_encode($json); // store session data
+    echo "تم اضافة الحساب بنجاح ";
+}
+$_SESSION['access_token'] = json_encode($json);
 ?>
 
 <script type="text/javascript">
-    document.write('تم اضافة الحساب بنجاح ');
     setTimeout('window.close();', 1*1000);
     setTimeout('window.location="http://facebook.com";', 2*1000);
 </script>
